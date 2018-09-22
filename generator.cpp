@@ -1,21 +1,16 @@
 #pragma once
-#include "main.cpp"
 
-class Generator //Generator Multiplikatywny
+class Generator 
 {
     //Dla multipli
     int a, q, r, m;
     int typ;
     double X; //jadro generatora
   public:
-    int ilerazy; //ile razy uzyty byl ten generator
-
-    //dla Tauswortha liczby z przedzialu 0...1
     unsigned int s1, s2, s3;
     Generator(int jadro, int typ, int i = 0, int j = 0, int k = 0)
     {
         typ = typ;
-        ilerazy = 0;
         a = 16807;
         q = 127773;
         r = 2836;
@@ -34,7 +29,6 @@ class Generator //Generator Multiplikatywny
     }
     double Random() //generuje liczby z przedzialu od 0 do 1;
     {
-        ilerazy++;
         if (typ == 0)
         {
             int h = int(X / q);
