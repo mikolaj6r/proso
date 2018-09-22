@@ -1,5 +1,5 @@
 # PROSO
-Generator / Symulator Pakietów
+Packet Generator
 
 # FAQ
 ## Compile
@@ -11,4 +11,6 @@ if You have NPM, you can run:
 3) npm run start -> to run ./build/main
 
 ## How it works
-Status: W.I.P.
+Actually, it's mainly a Class that allows to create Packet Generator.
+You can choose from these types of generators:
+- ...
