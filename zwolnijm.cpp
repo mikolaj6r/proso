@@ -1,7 +1,9 @@
 #pragma once
-#include "main.cpp"
+#include "KlasaRuchu.cpp"
+#include "zd_czasowe.cpp"
+#include "zmienne_globalne.cpp"  // korzysta ze zmiennych globalnych: ZbiorWiazek
 
-class ZWOLNIJM : public ZD_CZASOWE //Zwalnia zgloszenia typu mcast
+class ZWOLNIJM : public ZD_CZASOWE //Zwalnia zgloszenia typu multicastcast
 {
     KLASARUCHU *KlRuchu;
     int *KtoreLacza;
@@ -10,7 +12,7 @@ class ZWOLNIJM : public ZD_CZASOWE //Zwalnia zgloszenia typu mcast
     int LiczbaZwalnianychWiazek;
 
   public:
-    ZWOLNIJM(double t, KLASARUCHU *KlasaRuchu, int *WiazkiDoZwolnienia, int *WKtorychLaczach, int IleWiazek, int *DodatkowePJPDoZwolnienia) //Procedura
+    ZWOLNIJM(double t, KLASARUCHU *KlasaRuchu, int *WiazkiDoZwolnienia, int *WKtorychLaczach, int IleWiazek, int *DodatkowePJPDoZwolnienia)
     {
         time = t;
         KlRuchu = KlasaRuchu;
@@ -21,9 +23,7 @@ class ZWOLNIJM : public ZD_CZASOWE //Zwalnia zgloszenia typu mcast
     }
 
     ZD_CZASOWE *ObslugaZdarzenia(void)
-
     {
-
         for (int i = 0; i < LiczbaZwalnianychWiazek; i++)
             ZbiorWiazek[KtoreWiazkiZeZbioruWiazek[i]]->Zwolnij(KlRuchu -> PJP + Nadmiary[i], KtoreLacza[i]);
         delete[] Nadmiary;

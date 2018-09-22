@@ -1,54 +1,10 @@
-#pragma once
-
-
-
-//Deklaracje zmiennych globalnych;
-double TIME = 0;
- int FInicjalizacja = 0;
-//Ograniczenia pamieciowe symulatora
-const int PojKopc = 500000;                            //Pojemnosc zbioru zawiadomien o zdarzeniach
-const int MaxLiczbaWiazek = 100;                       //Maksymalna liczba wiazek mozliwych do
-const int MaxKlas = 100;      //Maksymalna liczba klas ruchu mozliwych do
-const int MaxStrumieni = 100; //Maksymalna liczba strumieni zgloszen
-int LWiazek = 0; //Liczba dostepnych wiazek w systemie
-int M = 0;                                             //Liczba dostepnych klas ruchu
-int S = 0;                                             //Liczba dostepnych strumieni zgloszen
-int R = 0;                                             //Granica rezerwacji w systemie dla algorytmow A1/A2
-int *Odrzuconych = new int[MaxStrumieni];              //Do obliczania P(B) danego
-int *Przyjetych = new int[MaxStrumieni];
-int LiczbaWszystkichZgloszen = 0;
-int TablicaMulticast[MaxLiczbaWiazek];
-int TablicaMulticastDodatkowePJP[MaxLiczbaWiazek];
-int TablicaMulticastIle = 0;
-//GENERATOR LICZB LOSOWYCH
-int IleJestGeneratorow;
-int genert;
-
-
-
-
 #include "math.h"
 #include "iostream"
 #include <sys/timeb.h>
-#include "Generator.cpp"
-GENERATOR PierwszyGenerator(0, 1000, 437297, 7116119, 3141928);
-#include "zd_czasowe.cpp"
-#include "Wiazka.cpp"
-
+#include "zmienne_globalne.cpp"
 #include "KlasaRuchu.cpp"
-#include "kopiec.cpp"
-KOPIEC ZbiorZawiad(PojKopc);
-WIAZKA *ZbiorWiazek[MaxLiczbaWiazek];
-#include "zgloszenie.cpp"
-#include "zwolnijm.cpp"
-#include "zgloszeniem.cpp"
-#include "zwolnij.cpp"
 
-ZD_CZASOWE *Zadanie;
-KLASARUCHU *ZbiorKlasRuchu[MaxKlas];
-int *StalaIntensywnosc = new int[MaxKlas];
-
-void InicjujDanePoczatkowe(void)
+void InicjujDanePoczatkowe()
 {
     //Zeruj tablice do obliczenia P(B)
     for (int i = 0; i < S; i++)
@@ -59,7 +15,7 @@ void InicjujDanePoczatkowe(void)
     LiczbaWszystkichZgloszen = 0;
 }
 
-void Ruch(void) //Wykonuje pojedynczy krok symulacji
+void Ruch() //Wykonuje pojedynczy krok symulacji
 {
     if (ZbiorZawiad.Ile())
     {
@@ -90,14 +46,14 @@ void ResetujKlasy() //Wewnetrzny reset programu
     M = 0; //Liczba dostepnych klas ruchu
 }
 
-void ResetujStrumienie(void) //Wewnetrzny reset programu
+void ResetujStrumienie() //Wewnetrzny reset programu
 {
     S = 0; //Liczba dostepnych strumieni zgloszen
     TIME = 0;
 }
 
 //Pomiar czasu
-double Stoper(void) //Wykonuje pomiar czasu symulacji
+double Stoper() //Wykonuje pomiar czasu symulacji
 {
     struct timeb t;
     ftime(&t);
@@ -108,7 +64,7 @@ double Stoper(void) //Wykonuje pomiar czasu symulacji
     return Stoper;
 }
 
-void ZachowajDaneKlas(void) //Tworzy punkt przywracania
+void ZachowajDaneKlas() //Tworzy punkt przywracania
 {
     for (int i = 0; i < M; i++)
     {
@@ -138,10 +94,26 @@ void SetR(int value) //Ustawia parametr rezerwacji globalnej
 {
     R = value;
 }
+
+
 //////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
+    int pjp, lambdaz, lambdao, prio;
+    std::cout << "PODAJ ZADOWALAJACE PJP: ";
+    std::cin >> pjp;
+    std::cout << "PODAJ ZADOWALAJACA INTENSYWNOSC ZGLOSZEN LAMBDA: ";
+    std::cin >> lambdaz;
+    std::cout << "PODAJ ZADOWALAJACA INTENSYWNOSC OBSLUGI LAMBDA: ";
+    std::cin >> lambdao;
+    std::cout << "PODAJ ZADOWALAJACY PRIORYTET: ";
+    std::cin >> prio;
+    std::cout << std::endl;
+    
+    for(int i=0; i<M; i++)
+        ZbiorKlasRuchu[i] = new KLASARUCHU(pjp, lambdaz, lambdao, prio);
+
     std::cout << "PHILIPS TO OGÓREK" << std::endl;
    return 0;
 }

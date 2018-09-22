@@ -4,8 +4,8 @@
   "description": "Generator / Symulator Pakietow",
   "main": "index.js",
   "scripts": {
-    "build": "g++ -std=c++17 -lstdc++ -Wall -Wextra 'main.cpp' -o 'main'",
-    "start": "./main"
+    "build": "g++ -std=c++17 -lstdc++ -Wall -Wextra 'main.cpp' -o 'build/main'",
+    "start": "./build/main"
   },
   "repository": {
     "type": "git",

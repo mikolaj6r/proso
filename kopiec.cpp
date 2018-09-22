@@ -1,19 +1,17 @@
 #pragma once
-#include "iostream"
 #include "zd_czasowe.cpp"
-#include "main.cpp"
-class KOPIEC //Struktura danych reprezentujaca zbior zawiadomien o
+class KOPIEC //Struktura danych reprezentujaca zbior zawiadomien 
 {
   private:
-  
     int MAX;
     ZD_CZASOWE **zd;
-    int L; //Liczba elementow
+    int liczba_elementow;
+
     void DoGory()
     {
-        ZD_CZASOWE *temp = zd[L];
-        int n = L;
-        while ((n != 1) && ((zd[n / 2]->time) > (temp->time))) //zmiana <
+        ZD_CZASOWE *temp = zd[liczba_elementow];
+        int n = liczba_elementow;
+        while ((n != 1) && ((zd[n / 2]->time) > (temp->time)))
         {
             zd[n] = zd[n / 2];
             n = n / 2;
@@ -26,9 +24,9 @@ class KOPIEC //Struktura danych reprezentujaca zbior zawiadomien o
         while (1)
         {
             int p = 2 * i; //Lewy potomek wezla
-            if (p > L)
+            if (p > liczba_elementow)
                 break;
-            if (p + 1 <= L)                            //prawy potomek nie koniecznie musi istniec
+            if (p + 1 <= liczba_elementow)                            //prawy potomek nie koniecznie musi istniec
                 if ((zd[p]->time) > (zd[p + 1]->time)) //zmiana <
                     p++;
             if ((zd[i]->time) <= (zd[p]->time)) //zmiana >=
@@ -44,7 +42,7 @@ class KOPIEC //Struktura danych reprezentujaca zbior zawiadomien o
     KOPIEC(int nMax)
     {
         zd = new ZD_CZASOWE *[nMax + 1];
-        L = 0;
+        liczba_elementow = 0;
         MAX = nMax;
     }
     ~KOPIEC()
@@ -53,19 +51,19 @@ class KOPIEC //Struktura danych reprezentujaca zbior zawiadomien o
     }
     void Add(ZD_CZASOWE *zdarzenie)
     {
-        if (L < MAX)
+        if (liczba_elementow < MAX)
         {
-            zd[L++] = zdarzenie;
+            zd[liczba_elementow++] = zdarzenie;
             DoGory();
         }
     }
     ZD_CZASOWE *Remove()
     {
-        if (L > 0) //konrola bledow
+        if (liczba_elementow > 0) 
         {
             ZD_CZASOWE *x = zd[1];
-            zd[1] = zd[L];
-            L--;
+            zd[1] = zd[liczba_elementow];
+            liczba_elementow--;
             NaDol();
             return x;
         }
@@ -74,7 +72,7 @@ class KOPIEC //Struktura danych reprezentujaca zbior zawiadomien o
     }
     int Ile(void)
     {
-        return L;
+        return liczba_elementow;
     }
 };
 

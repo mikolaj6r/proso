@@ -7,7 +7,5 @@ public:
     double time;
     WIAZKA* ktora;
     virtual ZD_CZASOWE *ObslugaZdarzenia(void) {return this;};
-    virtual ~ZD_CZASOWE(){
-        return;
-    }
+    virtual ~ZD_CZASOWE(){ };
 };
