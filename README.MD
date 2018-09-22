@@ -1,5 +1,5 @@
-# Title
-Proso - Generator / Symulator Pakietów
+# PROSO
+Generator / Symulator Pakietów
 
 # FAQ
 ## Compile
