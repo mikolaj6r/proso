@@ -1,0 +1,19 @@
+{
+  "name": "proso",
+  "version": "1.0.0",
+  "description": "Generator / Symulator Pakietow",
+  "main": "index.js",
+  "scripts": {
+    "build": "g++ -std=c++17 -lstdc++ -Wall -Wextra 'main.cpp' -o 'main'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikolaj6r/proso.git"
+  },
+  "author": "mikolaj6r, Balcerzyk, Lejdi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikolaj6r/proso/issues"
+  },
+  "homepage": "https://github.com/mikolaj6r/proso#readme"
+}
