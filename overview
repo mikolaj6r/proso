@@ -1,0 +1,21 @@
+
+
+
+GENERATOR PAKIETÓW
+- Generator bazowy o rozkladzie rownomiernym, typ: multiplikatywny albo oparty na rejestrach przesuwnych -  Tauswortha
+- Generator liczb pseudolosowych o okreslonym rozkladzie, np. Poissona, Ercostam lub Encostam
+
+KLASA RUCHU
+- ma PPU, typ rozkladu zgloszen i obslugi, priorytet
+- w zaleznosci od typu rozkladu zgloszen i obslugi zwraca zadanie do generatora liczb o 
+  wylosowanie wartosci czasu obslugi i czasu wystapienia kolejnego zgloszenia
+- najprostszy rozklad zgl i obsl: Poissona
+
+Strumień zgloszen i obslugi:
+- sa ciagiem kolejno pojawiajacych sie zdarzen
+- czas pomiedzy kolejnymi zdarzeniami ma char losowy
+- rozklad gest prawd czasu miedzy kolejnymi zdarzeniami charakteryzuje typ strumienia
+
+    W strumieniu Possiona:
+    - rozklad czasu pomiedzy kolejnymi zgloszeniami jest rozkladem wykladnicznym
+    - 
