@@ -1,0 +1,97 @@
+
+
+
+generator liczb pseudolosowych zwraca odpowiednie parametry:
+czas wystąpienia kolejnego zgłoszenia oraz, w przypadku przyjęcia aktualnego
+zgłoszenia, czas zakończenia obsługi
+
+
+
+
+Podzielic klase Generator na Bazowy i Docelowy
+
+Bazowy:
+- podstawowy Generator
+- ciag liczb o wart(0,1) zwracanych z niego sa podstawa do generowania ciagow liczb o dowolnych
+  rozkladach prawd.
+- dostarcza ciag liczb o rozkladzie rownomiernym
+- typ: multiplikatywny albo oparty na rejestrach przesuwnych - Tauswortha
+
+
+Docelowy:
+- oparty na bazowym
+
+
+KlasaRuchu:
+- część ruchu oferowanego systemowi
+- parametry: PPU(il. zasobow zajmowanych przez pojedyncze zgloszenie danej klasy, liczba żądanych PPU),
+             typ zgloszen, typ obslugi (Poissona), priorytet
+- generuje ruch modelowany danym rozkladem np. Poissona, żada 1 PPU, nieuprzywilejowana
+- ruchem zarzadza system
+- wykorzystuje strumienie zgloszen i obslugi zbudowane w oparciu o dany rozklad
+
+
+Strumień zgloszen i obslugi:
+- sa ciagiem kolejno pojawiajacych sie zdarzen
+- czas pomiedzy kolejnymi zdarzeniami ma char losowy
+- rozklad gest prawd czasu miedzy kolejnymi zdarzeniami charakteryzuje typ strumienia
+
+    W strumieniu Possiona:
+    - rozklad czasu pomiedzy kolejnymi zgloszeniami jest rozkladem wykladnicznym
+    - 
+
+
+Strumień ruchu:
+Strumienie ruchu są obiektami, które zawierają informacje jedynie na temat wzajemnych
+relacji obiektów: klas ruchu oraz wiązek. W symulatorze występują w postaci niejawnej,
+poprzez zgłoszenia określonej klasy kierowane do wiązki (lub wiązek). Dzięki takiemu
+rozwiązaniu, stało się możliwe nie tylko dynamiczne tworzenie obiektów o różnych
+parametrach, ale także dynamiczne modelowanie relacji jakie pomiędzy nimi zachodzą.
+
+- jest relacja utworzona przez skierowanie jednej klasy ruchu do zasobow systemu
+- w zaleznosci od liczby kierunkow do ktorych zgloszenia danej klasy sa kierowane wyrozniane sa 2rodzaje
+    : multicast i unicast
+    Unicast - zgloszenie danej klasy kierowane jest tylko do jednej wiazki
+
+Ponieważ model wiązki doskonałej, której oferowany jest „poissonowski”
+strumień ruchu zintegrowanego, umożliwia wyznaczenie dokładnego rozkładu zajętości
+w wiązce 
+
+Wiazka jest zasobem wezla systemu telekom. Okresla liczbe i pojemnosc dostepnych laczy i stan zjaetosci
+i poziom rezerwacji kazdego lacza. Wiazka ma alogrytm wyboru lacza i rezerwacji.
+
+
+Algorytm działania metody planowania zdarzeń przedstawia się następująco [15]:
+1. Pobierz (o ile istnieje) pierwsze zdarzenie ze zbioru zawiadomień o zdarzeniach
+i uaktualnij wartość czasu systemowego.
+2. Wykonaj procedurę obsługi zdarzenia czasowego. Przejrzyj wszystkie zdarzenia
+warunkowe związane z danym zdarzeniem czasowym i wykonaj procedury
+obsługi tych zdarzeń, których warunki wystąpienia są spełnione.
+3. Usuń komunikat zdarzenia czasowego.
+4. Wróć do punktu pierwszego.
+
+W celu zweryfikowania dokładności symulacji, przeprowadzono badanie wiązki
+doskonałej o pojemności V = 30 PJP, której oferowano trzy strumienie ruchu zintegrowanego
+w proporcjach: a1t1:a2t2:a3t3 = 1:1:1 o „poissonowskim” rozkładzie zgłoszeń
+i obsługi. Klasy ruchu odpowiadające strumieniom żądały odpowiednio 1, 3 oraz
+6 PJP. Stosunek ruchu oferowanego do 1 PJP wiązki wynosił a = 0,8. Badanie polegało
+na zmianie liczby zdarzeń na pomiar w zakresie 2·103
+ - 2·109
+, przy wykorzystaniu
+generatora Tauswortha oraz multiplikatywnego, jako generatorów bazowych
+
+
+Nie potrzebujemy:
+- wiazka
+- kopiec
+
+Strumienie są oferowane wiazce.
+
+Przyjmujemy:
+- typ wiazki: doskonala ( model łącza o pojemności V PPU, w którym wszystkie jednostki pasma PPU są
+    dostępne dla zgłoszeń. System obsługuje zgłoszenie zawsze, gdy w wiązce istnieje dostateczna
+    liczba wolnych jednostek pasma. )
+
+
+
+
