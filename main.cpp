@@ -5,7 +5,7 @@
 int main()
 {
     int num, seed = 1000;
-    base_type type = base_type::TAUS;
+    base_type type = base_type::MULTI;
     BaseGenerator* base_generator;
     Traffic* traff;
 

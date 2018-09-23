@@ -28,7 +28,7 @@ class BaseGenerator
                 temp2 = int(seed / arg2);
                 seed = arg1 * (seed - arg2 * temp2) - arg3 * temp2;
                 if (seed < 0) seed = seed + arg4;
-                return seed / arg4;
+                return double(seed) / double(arg4);
                 break;
             case TAUS:
                 temp = ((x << 9) ^ x) << 4;
