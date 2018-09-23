@@ -5,28 +5,29 @@
 
 class Traffic
 {
-  public:
-    int prior, bbu;
-    dist distType;
-    double arg1, arg2, arg3;
     BaseGenerator* base_generator;
-    Traffic(int i_prior, int i_bbu, double i_arg1, double i_arg2, double i_arg3, BaseGenerator* i_base_generator) 
-    : prior(i_prior), bbu(i_bbu), arg1(i_arg1), arg2(i_arg2) , base_generator(i_base_generator)
+    dist notifDistType, handleDistType;
+    double arg1, arg2, arg3, arg4;
+  
+  public:
+    Traffic(BaseGenerator* i_base_generator, dist notifType, dist handleType, double i_arg1, double i_arg2, double i_arg3 = 0, double i_arg4 = 0)
+    : arg1(i_arg1), arg2(i_arg2) , base_generator(i_base_generator), notifDistType(notifType), handleDistType(handleType), arg4(i_arg4)
     {
-        if (distType == ERL || distType == EQ || distType == TRI)
-            arg3 = i_arg3;
-        else arg3=0; 
+        if (notifDistType == ERL)
+			arg3 = i_arg3;
+		if (handleDistType == EQ || handleDistType == TRI)
+            arg4 = i_arg4;
     }
     int getHandleTime()
     {
-        switch (distType)
+        switch (handleDistType)
         {
             case EXP:
-                return (int)MainGenerator::getValue(distType, base_generator, arg1) + 0.5;
+                return (int)MainGenerator::getValue(handleDistType, base_generator, arg1) + 0.5;
             case EQ:
-                return (int)MainGenerator::getValue(distType, base_generator, arg3, 2 / arg1 - arg3);
+                return (int)MainGenerator::getValue(handleDistType, base_generator, arg4, 2 / arg1 - arg4);
             case TRI:
-                return (int)MainGenerator::getValue(distType, base_generator, arg3, 2 / arg1 - arg3);
+                return (int)MainGenerator::getValue(handleDistType, base_generator, arg4, 2 / arg1 - arg4);
             default:
                 break;
         }
@@ -34,12 +35,12 @@ class Traffic
     }
     int getNotifTime()
     {
-        switch (distType)
+        switch (notifDistType)
         {
             case EXP: 
-                return (int)MainGenerator::getValue(distType, base_generator, arg2) + 0.5;
+                return (int)MainGenerator::getValue(notifDistType, base_generator, arg2) + 0.5;
             case ERL:
-                return (int)MainGenerator::getValue(distType, base_generator, arg2, arg3) + 0.5;
+                return (int)MainGenerator::getValue(notifDistType, base_generator, arg2, arg3) + 0.5;
             default:
                 break;
         }
